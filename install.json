@@ -1,0 +1,5 @@
+{
+  "packageManager": "python",
+  "packageName": "nersc_refresh_announcements",
+  "uninstallInstructions": "Use your Python package manager (pip, conda, etc.) to uninstall the package nersc_refresh_announcements"
+}
