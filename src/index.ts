@@ -13,16 +13,16 @@ const API_URL = 'http://localhost:3000';
 
 // global variables used to keep track of on screen elements
 
-// keeps track of the button to show announcements so we can dispose it when needed
+// tracks the button to show announcements so we can dispose it when needed
 let openAnnouncementButton: IDisposable;
 
-// this is the current stored announcement
+// this tracks the current stored announcement
 let announcement = { user: '', announcement: '', timestamp: '' };
 
 // this is the status bar at the bottom of the screen
 let STATUSBAR: IStatusBar;
 
-// this is whether or not the user has seen the announcement
+// this tracks whether or not the user has seen the announcement
 // it determines whether or not to show the yellow alert emoji
 let newAnnouncement = false;
 
@@ -63,11 +63,8 @@ async function updateAnnouncements(url: string, n: number) {
 
   // check to see if the data is new
   if (data.announcement !== announcement.announcement) {
-    console.log('New Announcement!');
     newAnnouncement = true;
     announcement = data;
-  } else {
-    console.log('Same announcement');
   }
 
   // if we have an announcement display a button to get the announcements
@@ -82,7 +79,9 @@ async function updateAnnouncements(url: string, n: number) {
   }
 
   // wait n microseconds and check again
-  setTimeout(updateAnnouncements, n);
+  setTimeout(() => {
+    updateAnnouncements(url, n);
+  }, n);
 }
 
 // class used to create the button to open the announcements
@@ -103,41 +102,16 @@ function createAnnouncementsButton(newAnnouncement: boolean) {
 
   const statusWidget = new ButtonWidget();
   if (!newAnnouncement) {
-    statusWidget.node.textContent = 'Click for Announcements';
+    statusWidget.node.textContent = 'Announcements';
   } else {
     statusWidget.node.textContent = '⚠️ Click for Announcements';
   }
 
   openAnnouncementButton = STATUSBAR.registerStatusItem('new-announcement', {
-    align: 'middle',
+    align: 'left',
     item: statusWidget
   });
 }
-
-// function openAnnouncements() {
-//   const widget = new Widget();
-//   widget.addClass('new-announcement'); // see base.css for styling
-
-//   widget.id = 'announcement';
-//   widget.title.label = 'New Announcement';
-//   widget.title.closable = true;
-
-//   const button = document.createElement('p');
-//   button.innerHTML = 'X';
-//   button.classList.add('close-button');
-//   button.onclick = closeAnnouncement;
-//   widget.node.appendChild(button);
-
-//   const text = document.createElement('p');
-//   text.innerHTML = ANNOUNCEMENT.announcement;
-//   text.classList.add('announcement');
-//   widget.node.appendChild(text);
-
-//   APP.shell.add(widget, 'top');
-//   APP.shell.activateById(widget.id);
-
-//   announcementWidget = widget;
-// }
 
 /**
  * Initialization data for the nersc-refresh-announcements extension.
@@ -150,7 +124,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     console.log(
       'JupyterLab extension nersc-refresh-announcements is activated!'
     );
-    // APP = app;
+
     STATUSBAR = statusBar;
     updateAnnouncements(API_URL, 5000);
   }
