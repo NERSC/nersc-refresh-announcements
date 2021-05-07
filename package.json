@@ -14,7 +14,7 @@
   "license": "BSD-3-Clause",
   "author": {
     "name": "Josh Geden",
-    "email": ""
+    "email": "jgeden@lbl.gov"
   },
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
@@ -45,7 +45,8 @@
     "watch:labextension": "jupyter labextension watch ."
   },
   "dependencies": {
-    "@jupyterlab/application": "^3.0.0"
+    "@jupyterlab/application": "^3.0.0",
+    "@lumino/widgets": "^1.22.0"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.0.0",
