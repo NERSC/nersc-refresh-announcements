@@ -162,7 +162,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     );
 
     const myObject = new RefreshAnnouncements(statusBar);
-    myObject.updateAnnouncements(API_URL, 300000000); // 300,000,000 microseconds is 5 minutes
+    myObject.updateAnnouncements(API_URL, 300 * 1000); // 300,000 milliseconds is 5 minutes
   }
 };
 
