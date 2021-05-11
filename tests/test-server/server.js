@@ -9,7 +9,7 @@ const emptyAnnouncement = process.argv.includes('--empty-announcement');
 app.use(cors());
 
 app.listen(PORT, () => {
-    if (emptyAnnouncement) {
+    if (!emptyAnnouncement) {
         console.log(`Announcement at port ${PORT}`);
     } else {
         console.log(`Empty Announcement at port ${PORT}`);
@@ -19,7 +19,7 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => {
     res.status(200);
     if (emptyAnnouncement) {
-        res.json({});
+        res.json({ "announcement": "" });
     } else {
         res.json({
             user: 'rcthomas',
