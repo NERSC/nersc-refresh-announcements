@@ -7,7 +7,7 @@
             "type": "string",
             "title": "Announcements API URL",
             "description": "This is the URL that the extension will fetch announcements from",
-            "default": "http://localhost:3000"
+            "default": "/services/announcement/latest"
         },
         "refresh-interval": {
             "type": "number",
