@@ -1,0 +1,53 @@
+name: Build and Test Extension
+on: [push, workflow_dispatch]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Get the current repo files and install node
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      # Install node requirements and then install jupyterlab
+      - run: npm install
+      - run: pip install jupyterlab
+
+      # Install the extension and show where it was installed
+      - run: pip install .
+      - run: jupyter labextension list
+
+      # Download and install gecko web driver
+      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      - run: sudo tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C /usr/bin
+      - run: sudo chmod a+x /usr/bin/geckodriver
+
+      # Install selenium and pytest
+      - run: pip install selenium
+      - run: pip install pytest
+      
+      # Install necessary server packages and start the server
+      - run: cd tests/test-server
+      - run: npm install express
+      - run: npm install cors
+      - run: npm install nodemon
+      - run: npm install
+      - run: (npm start&)
+
+      - run: cd ../..
+
+      # Start jupyterlab and run the nonempty test
+      - run: jupyter labextension list
+      - run: jupyter lab --port=8888 --NotebookApp.token='' &
+      - run: pytest tests/test_nonempty_announcement.py
+
+      # Kill and restart the server
+      - run: killall -9 node
+      - run: cd tests/test-server
+      - run: (npm empty-announcements&)
+
+      # Run empty announcements test
+      - run: cd ../..
+      - run: pytest tests/test_empty_announcement.py
