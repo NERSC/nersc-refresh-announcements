@@ -17,7 +17,7 @@ from selenium.webdriver.firefox.options import Options
 
 class Test():
   def setup_method(self, method):
-    options = Options
+    options = Options()
     options.headless = True
     self.driver = webdriver.Firefox(options=options)
     self.vars = {}

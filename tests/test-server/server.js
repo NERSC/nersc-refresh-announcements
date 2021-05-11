@@ -9,7 +9,11 @@ const emptyAnnouncement = process.argv.includes('--empty-announcement');
 app.use(cors());
 
 app.listen(PORT, () => {
-    console.log(`App listening at port ${PORT}`);
+    if (emptyAnnouncement) {
+        console.log(`Announcement at port ${PORT}`);
+    } else {
+        console.log(`Empty Announcement at port ${PORT}`);
+    }
 });
 
 app.get('/', (req, res) => {
