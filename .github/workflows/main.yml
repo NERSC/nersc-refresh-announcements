@@ -42,7 +42,7 @@ jobs:
       - run: mkdir /home/runner/.local/share/jupyter/lab/settings
       - run: 
         > 
-          echo '{ "url": "http://localhost:3000" }' > /home/runner/.local/share/jupyter/lab/settings/overrides.json
+          echo '{"nersc-refresh-announcements:plugin": { "url": "http://localhost:3000" } }' > /home/runner/.local/share/jupyter/lab/settings/overrides.json
 
       # Start jupyterlab and run the nonempty test
       - run: jupyter labextension list
