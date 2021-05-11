@@ -1,0 +1,6 @@
+{
+    "nersc-refresh-announcements:plugin": {
+        "url": "https://jupyter.nersc.gov/services/announcement/latest",
+        "refresh-interval": 300000
+    }
+}
