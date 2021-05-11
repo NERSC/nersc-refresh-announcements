@@ -35,8 +35,8 @@ to find where your extensions are installed.
 ## Configuration and Announcement API Assumptions
 
 The default url that the extension will attempt to fetch announcements from is
-<base url>/services/announcement/latest . If you wish to change that url you 
-can do so for each user in JupyterLab under the advanced settings window. You
+`<base url>/services/announcement/latest`. If you wish to change that url you 
+can do so per user in JupyterLab under the advanced settings window. You
 can also change that url for every user on the system by modifying Jupyter's
 `overrides.json` file. Click 
 <a href="https://jupyterlab.readthedocs.io/en/latest/user/directories.html#overrides-json"> this link</a>
