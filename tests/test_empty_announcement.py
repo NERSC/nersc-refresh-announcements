@@ -34,7 +34,7 @@ class Test():
   
   def test_file(self):
     # open JupyerLab
-    self.driver.get("localhost:8888/?token=53d187a13c16337acb036d7b16d3ae0aaa9cf4a095db580b")
+    self.driver.get("http://localhost:8888")
     self.driver.implicitly_wait(5)
 
     # Give 60 seconds for the user to login
