@@ -59,7 +59,7 @@ class RefreshAnnouncements {
     }
 
     // if we have an announcement display a button to get the announcements
-    if (Object.keys(data).length !== 0) {
+    if (Object.keys(data).length !== 0 && data.announcement !== '') {
       this.createAnnouncementsButton(this.newAnnouncement);
     }
     // otherwise destroy any button present
