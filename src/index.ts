@@ -6,10 +6,7 @@ import { Widget } from '@lumino/widgets';
 import { IStatusBar } from '@jupyterlab/statusbar';
 import { IDisposable } from '@lumino/disposable';
 import { Dialog, showDialog } from '@jupyterlab/apputils';
-
-// API to fetch the announcements from
-// const API_URL = 'https://jupyter-dev.nersc.gov/services/announcement/latest';
-const API_URL = 'http://localhost:3000';
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 // Class that handles all the announcements refresh information and methods
 class RefreshAnnouncements {
@@ -149,20 +146,31 @@ class RefreshAnnouncements {
   }
 }
 
+const PLUGIN_ID = 'nersc-refresh-announcements:plugin';
+
 /**
  * Initialization data for the nersc-refresh-announcements extension.
  */
 const extension: JupyterFrontEndPlugin<void> = {
-  id: 'nersc-refresh-announcements:plugin',
+  id: PLUGIN_ID,
   autoStart: true,
-  requires: [IStatusBar],
-  activate: async (app: JupyterFrontEnd, statusBar: IStatusBar) => {
+  requires: [IStatusBar, ISettingRegistry],
+  activate: async (
+    app: JupyterFrontEnd,
+    statusBar: IStatusBar,
+    settingRegistry: ISettingRegistry
+  ) => {
     console.log(
       'JupyterLab extension nersc-refresh-announcements is activated!'
     );
 
+    const settings = await settingRegistry.load(PLUGIN_ID);
+    const apiUrl = settings.get('url').composite as string;
+    const refreshInterval = settings.get('refresh-interval')
+      .composite as number;
+
     const myObject = new RefreshAnnouncements(statusBar);
-    myObject.updateAnnouncements(API_URL, 300 * 1000); // 300,000 milliseconds is 5 minutes
+    myObject.updateAnnouncements(apiUrl, refreshInterval);
   }
 };
 
