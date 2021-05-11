@@ -34,7 +34,7 @@ jobs:
       - run: npm install cors
       - run: npm install nodemon
       - run: npm install
-      - run: (node ./server.js &)
+      - run: (node ./tests/test-server/server.js &)
 
       - run: cd ../..
 
@@ -46,7 +46,7 @@ jobs:
       # Kill and restart the server
       - run: killall -9 node
       - run: cd tests/test-server
-      - run: (node ./server.js --empty-announcement &)
+      - run: (node ./test/test-server/server.js --empty-announcement &)
 
       # Run empty announcements test
       - run: cd ../..
