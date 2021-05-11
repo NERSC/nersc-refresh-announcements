@@ -169,6 +169,10 @@ const extension: JupyterFrontEndPlugin<void> = {
     const refreshInterval = settings.get('refresh-interval')
       .composite as number;
 
+    console.log(
+      `Fetching announcements from ${apiUrl} every ${refreshInterval} milliseconds`
+    );
+
     const myObject = new RefreshAnnouncements(statusBar);
     myObject.updateAnnouncements(apiUrl, refreshInterval);
   }
