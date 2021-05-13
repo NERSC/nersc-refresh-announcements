@@ -4,14 +4,14 @@ import {
 } from '@jupyterlab/application';
 import { Widget } from '@lumino/widgets';
 import { IStatusBar } from '@jupyterlab/statusbar';
-import { IDisposable } from '@lumino/disposable';
 import { Dialog, showDialog } from '@jupyterlab/apputils';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 // Class that handles all the announcements refresh information and methods
 class RefreshAnnouncements {
-  // tracks the button to show announcements so we can dispose it when needed
-  openAnnouncementButton: IDisposable;
+  // tracks the button to show announcements
+  openAnnouncementButton: Widget;
+
   // this tracks the current stored announcement
   announcement: { user: string; announcement: string; timestamp: string };
   // this is the status bar at the bottom of the screen
@@ -62,10 +62,10 @@ class RefreshAnnouncements {
     if (Object.keys(data).length !== 0 && data.announcement !== '') {
       this.createAnnouncementsButton(this.newAnnouncement);
     }
-    // otherwise destroy any button present
+    // otherwise hide any button present
     else {
       if (this.openAnnouncementButton) {
-        this.openAnnouncementButton.dispose();
+        this.openAnnouncementButton.node.textContent = '';
       }
     }
 
@@ -75,12 +75,8 @@ class RefreshAnnouncements {
     }, n);
   }
 
-  // creates a button on the status bar to open the announcements modal
+  // creates/edits a button on the status bar to open the announcements modal
   createAnnouncementsButton(newAnnouncement: boolean) {
-    if (this.openAnnouncementButton) {
-      this.openAnnouncementButton.dispose();
-    }
-
     // class used to create the open announcements button
     class ButtonWidget extends Widget {
       public constructor(
@@ -94,7 +90,7 @@ class RefreshAnnouncements {
         // when the button is clicked:
         // mark the announcement as no longer new
         // open the announcement in a modal
-        // create a new announcement button (in case we should get rid of the yellow warning emoji)
+        // edit the announcement button (to get rid of yellow warning emoji)
         this.node.onclick = () => {
           announcementsObject.newAnnouncement = false;
           announcementsObject.openAnnouncements();
@@ -102,26 +98,31 @@ class RefreshAnnouncements {
             announcementsObject.newAnnouncement
           );
         };
-
-        if (!newAnnouncement) {
-          this.node.textContent = 'Announcements';
-        } else {
-          this.node.textContent = '⚠️ Click for Announcements';
-        }
       }
     }
 
-    // creates the open annonucements button
-    const statusWidget = new ButtonWidget(this, this.newAnnouncement);
+    // if the open announcements button isn't on the status bar
+    if (!this.openAnnouncementButton) {
+      // creates the open annonucements button
+      this.openAnnouncementButton = new ButtonWidget(
+        this,
+        this.newAnnouncement
+      );
 
-    // adds the open announcements button to the status bar
-    this.openAnnouncementButton = this.statusbar.registerStatusItem(
-      'new-announcement',
-      {
+      // places the button on the status bar
+      this.statusbar.registerStatusItem('new-announcement', {
         align: 'left',
-        item: statusWidget
-      }
-    );
+        item: this.openAnnouncementButton
+      });
+    }
+
+    // labels the button if the announcement based on if it is new or not
+    if (!newAnnouncement) {
+      this.openAnnouncementButton.node.textContent = 'Announcements';
+    } else {
+      this.openAnnouncementButton.node.textContent =
+        '⚠️ Click for Announcements';
+    }
   }
 
   // creates and open the modal with the announcement in it
