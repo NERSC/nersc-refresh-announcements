@@ -50,7 +50,9 @@ There are two assumptions made about the announcements API. The first is that
 it has Cross-Origin Resource Sharing enabled and is accessible from the url 
 that the JupyterLab server is running on (for most users this is 
 localhost:8888, but if you use a JupyterHub service or other portal it might 
-be different). You might have to work with your announcements API provider to ensure your JupyterLab is allowed to fetch from that url. The second 
+be different) or that the announcements API is hosted on the same origin. 
+You might have to work with your announcements API provider to ensure your 
+JupyterLab is allowed to fetch from that url. The second 
 assumption is that the API will return a json object that has an 
 "announcement" field (i.e. {"announcement": "Hello, World!"}).
 
