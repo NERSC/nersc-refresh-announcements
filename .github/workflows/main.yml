@@ -6,13 +6,12 @@ jobs:
     steps:
       # Get the current repo files and install node
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
 
-      # Install node requirements and then install jupyterlab
-      - run: npm install
+      # Install jupyterlab
       - run: pip install jupyterlab
 
       # Install the extension and show where it was installed
