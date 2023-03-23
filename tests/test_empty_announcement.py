@@ -1,13 +1,8 @@
-import pytest
 import time
-import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.firefox.options import Options
 
 # Assumes that the API_URL returns the following JSON when fetched:
@@ -18,7 +13,7 @@ from selenium.webdriver.firefox.options import Options
 class Test():
   def setup_method(self, method):
     options = Options()
-    options.headless = True
+    options.add_argument("--headless")
     self.driver = webdriver.Firefox(options=options)
     self.vars = {}
   
@@ -33,7 +28,7 @@ class Test():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_file(self):
-    # open JupyerLab
+    # open JupyterLab
     self.driver.get("http://localhost:8888")
     self.driver.implicitly_wait(5)
 
@@ -46,5 +41,5 @@ class Test():
     time.sleep(3)
     
     # Make sure that announcements button is not present
-    elems = self.driver.find_elements_by_class_name("open-announcements")
+    elems = self.driver.find_elements(By.CLASS_NAME, "open-announcements")
     assert len(elems) == 0

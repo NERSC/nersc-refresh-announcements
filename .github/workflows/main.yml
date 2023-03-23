@@ -20,8 +20,8 @@ jobs:
       - run: jupyter labextension list
 
       # Download and install gecko web driver
-      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
-      - run: sudo tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C /usr/bin
+      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz
+      - run: sudo tar -xzf geckodriver-v0.32.2-linux64.tar.gz -C /usr/bin
       - run: sudo chmod a+x /usr/bin/geckodriver
 
       # Install selenium and pytest
