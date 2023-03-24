@@ -5,8 +5,13 @@ include jupyter-config/nersc_refresh_announcements.json
 
 include package.json
 include install.json
+include example_overrides.json
 include ts*.json
 include yarn.lock
+
+recursive-include schema *.json
+recursive-include tests *.js
+recursive-include tests *.json
 
 graft nersc_refresh_announcements/labextension
 
