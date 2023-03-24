@@ -7,9 +7,9 @@
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/github_username/nersc_refresh_announcements",
+  "homepage": "https://github.com/NERSC/nersc_refresh_announcements",
   "bugs": {
-    "url": "https://github.com/github_username/nersc_refresh_announcements/issues"
+    "url": "https://github.com/NERSC/nersc_refresh_announcements/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -26,7 +26,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/github_username/nersc_refresh_announcements.git"
+    "url": "https://github.com/NERSC/nersc_refresh_announcements.git"
   },
   "scripts": {
     "build": "jlpm run build:lib && jlpm run build:labextension:dev",
