@@ -6,13 +6,14 @@ jobs:
     steps:
       # Get the current repo files and install node
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
 
-      # Install node requirements and then install jupyterlab
-      - run: npm install
+      # Install jupyterlab
       - run: pip install jupyterlab
 
       # Install the extension and show where it was installed
@@ -20,8 +21,8 @@ jobs:
       - run: jupyter labextension list
 
       # Download and install gecko web driver
-      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
-      - run: sudo tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C /usr/bin
+      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz
+      - run: sudo tar -xzf geckodriver-v0.32.2-linux64.tar.gz -C /usr/bin
       - run: sudo chmod a+x /usr/bin/geckodriver
 
       # Install selenium and pytest

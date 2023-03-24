@@ -1,13 +1,8 @@
-import pytest
 import time
-import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.firefox.options import Options
 
 # Assumes that the API_URL returns the following JSON when fetched:
@@ -23,7 +18,7 @@ from selenium.webdriver.firefox.options import Options
 class Test():
   def setup_method(self, method):
     options = Options()
-    options.headless = True
+    options.add_argument("--headless")
     self.driver = webdriver.Firefox(options=options)
     self.vars = {}
   
@@ -38,7 +33,7 @@ class Test():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test(self):
-    # open JupyerLab
+    # open JupyterLab
     self.driver.get("http://localhost:8888")
     self.driver.implicitly_wait(10)
 
@@ -51,39 +46,39 @@ class Test():
     time.sleep(3)
     
     # Make sure that announcements button is present, click it
-    elem = self.driver.find_element_by_class_name("open-announcements")
+    elem = self.driver.find_element(By.CLASS_NAME, "open-announcements")
     assert elem is not None
     assert elem.text == '⚠️ Click for Announcements'
     elem.click()
 
     # Make sure that the modal pops up with the right information
-    elem = self.driver.find_element_by_xpath('//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
     assert elem is not None
 
-    elem = self.driver.find_element_by_xpath('//div[@class="lm-Widget p-Widget jp-Dialog-header"]')
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget jp-Dialog-header"]')
     assert elem.text == 'Announcements'
 
-    elem = self.driver.find_element_by_xpath('//div[@class="lm-Widget p-Widget jp-Dialog-body"]')
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget jp-Dialog-body"]')
     assert elem.text == 'This is a test of the Jupyter announcement system. This is only a test. Here is a link to the NERSC MOTD.'
 
     # Make sure the close button is present, click it
-    elem = elem = self.driver.find_element_by_xpath('//div[@class="jp-Dialog-buttonLabel"]')
+    elem = elem = self.driver.find_element(By.XPATH, '//div[@class="jp-Dialog-buttonLabel"]')
     assert elem.text == 'Close'
-    elem = self.driver.find_element_by_xpath('//button[@class="jp-Dialog-button jp-mod-accept jp-mod-styled"]')
+    elem = self.driver.find_element(By.XPATH, '//button[@class="jp-Dialog-button jp-mod-accept jp-mod-styled"]')
     assert elem is not None
     elem.click()
 
     # Make sure the modal went away
     self.driver.implicitly_wait(0)
-    elems = self.driver.find_elements_by_xpath('//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
+    elems = self.driver.find_elements(By.XPATH, '//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
     assert len(elems) == 0
 
     # Make sure the announcements button changes to remove yellow warning
-    elem = self.driver.find_element_by_class_name("open-announcements")
+    elem = self.driver.find_element(By.CLASS_NAME, "open-announcements")
     assert elem is not None
     assert elem.text == 'Announcements'
 
     # Make sure the annoucements modal can be reopened
     elem.click()
-    elem = self.driver.find_element_by_xpath('//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
     assert elem is not None
