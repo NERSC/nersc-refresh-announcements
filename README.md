@@ -9,7 +9,7 @@ in a modal window.
 
 ## Requirements
 
-* JupyterLab >= 3.0
+* JupyterLab >= 4.0 < 5.0
 
 ## Install
 

@@ -1,0 +1,14 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.0.9
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: jgeden@lbl.gov
+author_name: Josh Geden
+has_binder: false
+has_settings: true
+kind: frontend
+labextension_name: nersc-refresh-announcements
+project_short_description: A JupyterLab extension.
+python_name: nersc_refresh_announcements
+repository: https://github.com/NERSC/nersc_refresh_announcements.git
+test: false
+

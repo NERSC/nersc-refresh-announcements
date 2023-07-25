@@ -39,27 +39,27 @@ class Test():
 
     # Give 60 seconds for the user to login
     WebDriverWait(self.driver, 60).until(
-      expected_conditions.presence_of_element_located((By.XPATH, '//div[@class="lm-MenuBar-itemLabel p-MenuBar-itemLabel" and text()="File"]'))
+      expected_conditions.presence_of_element_located((By.XPATH, '//div[@class="lm-MenuBar-itemLabel" and text()="File"]'))
     )
 
     # Wait for splash screen to go away
     time.sleep(3)
     
     # Make sure that announcements button is present, click it
-    elem = self.driver.find_element(By.CLASS_NAME, "open-announcements")
+    elem = self.driver.find_element(By.CLASS_NAME, "jp-nersc-refresh-announcements-open-announcements")
     assert elem is not None
-    assert elem.text == '⚠️ Click for Announcements'
+    assert elem.text == '⚠️ 📢 Announcement'
     elem.click()
 
     # Make sure that the modal pops up with the right information
-    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget lm-Panel jp-Dialog-content"]')
     assert elem is not None
 
-    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget jp-Dialog-header"]')
-    assert elem.text == 'Announcements'
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget jp-Dialog-header"]')
+    assert elem.text == 'Announcement'
 
-    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget jp-Dialog-body"]')
-    assert elem.text == 'This is a test of the Jupyter announcement system. This is only a test. Here is a link to the NERSC MOTD.'
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget jp-Dialog-body"]')
+    assert elem.text == '2021-05-05T13:05:57.957231 - This is a test of the Jupyter announcement system. This is only a test. Here is a link to the NERSC MOTD.'
 
     # Make sure the close button is present, click it
     elem = elem = self.driver.find_element(By.XPATH, '//div[@class="jp-Dialog-buttonLabel"]')
@@ -70,15 +70,14 @@ class Test():
 
     # Make sure the modal went away
     self.driver.implicitly_wait(0)
-    elems = self.driver.find_elements(By.XPATH, '//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
+    elems = self.driver.find_elements(By.XPATH, '//div[@class="lm-Widget lm-Panel jp-Dialog-content"]')
     assert len(elems) == 0
 
-    # Make sure the announcements button changes to remove yellow warning
-    elem = self.driver.find_element(By.CLASS_NAME, "open-announcements")
+    elem = self.driver.find_element(By.CLASS_NAME, "jp-nersc-refresh-announcements-open-announcements")
     assert elem is not None
-    assert elem.text == 'Announcements'
+    assert elem.text == '⚠️ 📢 Announcement'
 
     # Make sure the annoucements modal can be reopened
     elem.click()
-    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget p-Widget lm-Panel p-Panel jp-Dialog-content"]')
+    elem = self.driver.find_element(By.XPATH, '//div[@class="lm-Widget lm-Panel jp-Dialog-content"]')
     assert elem is not None
