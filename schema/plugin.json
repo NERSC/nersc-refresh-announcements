@@ -1,20 +1,20 @@
 {
-    "title": "Announcements Refresh Extension",
-    "description": "Announcements Refresh settings",
-    "type": "object",
-    "properties": {
-        "url": {
-            "type": "string",
-            "title": "Announcements API URL",
-            "description": "This is the URL that the extension will fetch announcements from",
-            "default": "/services/announcement/latest"
-        },
-        "refresh-interval": {
-            "type": "number",
-            "title": "Refresh Interval",
-            "description": "This is how often in milliseconds the extension will fetch from the announcements API",
-            "default": 300000
-        }
+  "title": "Announcements Refresh Extension",
+  "description": "Announcements Refresh settings",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "title": "Announcements API URL",
+      "description": "This is the URL that the extension will fetch announcements from",
+      "default": "/services/announcement/latest"
     },
-    "additionalProperties": false
+    "refresh-interval": {
+      "type": "number",
+      "title": "Refresh Interval",
+      "description": "This is how often in milliseconds the extension will fetch from the announcements API",
+      "default": 300000
+    }
+  },
+  "additionalProperties": false
 }
