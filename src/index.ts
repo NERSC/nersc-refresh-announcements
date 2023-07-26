@@ -112,19 +112,12 @@ class RefreshAnnouncements {
     } catch (e) {
       // there was an error with fetching
       console.log(e);
-
-      // call again in n microseconds (maybe the API is only down for a little bit)
+    } finally {
+      // wait n microseconds and check again
       setTimeout(() => {
         this.fetchAnnouncement(url, n);
       }, n);
-
-      return;
     }
-
-    // wait n microseconds and check again
-    setTimeout(() => {
-      this.fetchAnnouncement(url, n);
-    }, n);
   }
 }
 
