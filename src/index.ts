@@ -111,7 +111,7 @@ class RefreshAnnouncements {
       }
     } catch (e) {
       // there was an error with fetching
-      console.error(e);
+      console.log(e);
 
       // call again in n microseconds (maybe the API is only down for a little bit)
       setTimeout(() => {
