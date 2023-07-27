@@ -37,8 +37,7 @@ jobs:
         run: |
           mkdir -p /home/runner/.local/etc/jupyter/labconfig
           cp example_overrides.json /home/runner/.local/etc/jupyter/labconfig/default_setting_overrides.json
-          > 
-          echo '{"nersc-refresh-announcements:plugin": { "url": "http://localhost:3000" } }' > /home/runner/.local/share/jupyter/lab/settings/overrides.json
+          echo '{"nersc-refresh-announcements:plugin": { "url": "http://localhost:3000" } }' > /home/runner/.local/etc/jupyter/labconfig/default_setting_overrides.json
 
       # Download and install gecko web driver
       - name: Get web driver
