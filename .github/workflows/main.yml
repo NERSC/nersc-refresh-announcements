@@ -22,7 +22,7 @@ jobs:
       # Install jupyterlab
       - name: Install JupyterLab
         run: |
-          python -m pip install "jupyterlab>=3.5.0,<4"
+          python -m pip install "jupyterlab>=4.0.0,<5"
           jupyter lab --version
           jupyter --paths
 
@@ -36,14 +36,13 @@ jobs:
       - name: Set overrides
         run: |
           mkdir -p /home/runner/.local/etc/jupyter/labconfig
-          cp example_overrides.json /home/runner/.local/etc/jupyter/labconfig/default_setting_overrides.json
           echo '{"nersc-refresh-announcements:plugin": { "url": "http://localhost:3000" } }' > /home/runner/.local/etc/jupyter/labconfig/default_setting_overrides.json
 
       # Download and install gecko web driver
       - name: Get web driver
         run: |
-          wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz
-          sudo tar -xzf geckodriver-v0.32.2-linux64.tar.gz -C /usr/bin
+          wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
+          sudo tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C /usr/bin
           sudo chmod a+x /usr/bin/geckodriver
 
       # Install selenium and pytest
@@ -67,7 +66,7 @@ jobs:
       - name: Start jupyterlab
         run: |
           jupyter labextension list
-          jupyter lab --port=8888 --NotebookApp.token='' &
+          jupyter lab --port=8888 --NotebookApp.token='' --debug &
       - name: Run nonempty test
         run: |
           pytest tests/test_nonempty_announcement.py
@@ -77,8 +76,8 @@ jobs:
         run: |
           killall -9 node
           cd tests/test-server
-          (node ./tests/test-server/server.js --empty-announcement &)
           cd ../..
+          (node ./tests/test-server/server.js --empty-announcement &)
 
       # Run empty announcements test
       - name: Run empty announcement test

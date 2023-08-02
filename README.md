@@ -6,10 +6,9 @@ This extension fetches announcements from an external API to and creates
 a button in the JupyterLab status bar that can display the announcement
 in a modal window.
 
-
 ## Requirements
 
-* JupyterLab >= 3.0
+- JupyterLab >= 4.0 < 5.0
 
 ## Install
 
@@ -28,17 +27,17 @@ pip uninstall nersc_refresh_announcements
 ```
 
 If that does not work, you can directly delete the extension folder from
-Jupyter. See 
-<a href="https://jupyterlab.readthedocs.io/en/latest/user/directories.html#extensions">this link</a> 
+Jupyter. See
+<a href="https://jupyterlab.readthedocs.io/en/latest/user/directories.html#extensions">this link</a>
 to find where your extensions are installed.
 
 ## Configuration and Announcement API Assumptions
 
 The default url that the extension will attempt to fetch announcements from is
-`<base url>/services/announcement/latest`. If you wish to change that url you 
+`<base url>/services/announcement/latest`. If you wish to change that url you
 can do so per user in JupyterLab under the advanced settings window. You
 can also change that url for every user on the system by modifying Jupyter's
-`overrides.json` file. Click 
+`overrides.json` file. Click
 <a href="https://jupyterlab.readthedocs.io/en/latest/user/directories.html#overrides-json"> this link</a>
 to see where your overrides.json file is installed. Similarly, the refresh
 interval that controls how often the announcement API is checked can also
@@ -46,14 +45,14 @@ be configured either per user or system-wide.
 
 View the `examples_overrides.json` file above to see how to format this file.
 
-There are two assumptions made about the announcements API. The first is that 
-it has Cross-Origin Resource Sharing enabled and is accessible from the url 
-that the JupyterLab server is running on (for most users this is 
-localhost:8888, but if you use a JupyterHub service or other portal it might 
-be different) or that the announcements API is hosted on the same origin. 
-You might have to work with your announcements API provider to ensure your 
-JupyterLab is allowed to fetch from that url. The second 
-assumption is that the API will return a json object that has an 
+There are two assumptions made about the announcements API. The first is that
+it has Cross-Origin Resource Sharing enabled and is accessible from the url
+that the JupyterLab server is running on (for most users this is
+localhost:8888, but if you use a JupyterHub service or other portal it might
+be different) or that the announcements API is hosted on the same origin.
+You might have to work with your announcements API provider to ensure your
+JupyterLab is allowed to fetch from that url. The second
+assumption is that the API will return a json object that has an
 "announcement" field (i.e. {"announcement": "Hello, World!"}).
 
 ## Contributing

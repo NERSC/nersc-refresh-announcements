@@ -34,12 +34,22 @@ class Test():
 
     # Give 60 seconds for the user to login
     WebDriverWait(self.driver, 60).until(
-      expected_conditions.presence_of_element_located((By.XPATH, '//div[@class="lm-MenuBar-itemLabel p-MenuBar-itemLabel" and text()="File"]'))
+      expected_conditions.presence_of_element_located((By.XPATH, '//div[@class="lm-MenuBar-itemLabel" and text()="File"]'))
     )
 
     # Wait for splash screen to go away
     time.sleep(3)
-    
-    # Make sure that announcements button is not present
-    elems = self.driver.find_elements(By.CLASS_NAME, "open-announcements")
-    assert len(elems) == 0
+
+    WebDriverWait(self.driver, 60).until(
+      expected_conditions.element_to_be_clickable(
+        (By.CLASS_NAME, 'jp-nersc-refresh-announcements-open-announcements')
+        )
+      ).click()
+
+    elem = WebDriverWait(self.driver, 60).until(
+      expected_conditions.visibility_of_element_located(
+        (By.CLASS_NAME, 'jp-nersc-refresh-announcements-announcement')
+        )
+      )
+    assert(elem.text == 'Currently no announcement.')
+

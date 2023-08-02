@@ -1,17 +1,17 @@
-.announcement a {
-    color: blue;
-    text-decoration: underline;
+.jp-nersc-refresh-announcements-announcement a {
+  color: blue;
+  text-decoration: underline;
 }
 
-.open-announcements {
-   line-height: 24px;
-   font-size: var(--jp-ui-font-size1);
-   font-family: var(--jp-ui-font-family);
-   color: var(--jp-ui-font-color1);
+.jp-nersc-refresh-announcements-open-announcements {
+  line-height: 24px;
+  font-size: var(--jp-ui-font-size1);
+  font-family: var(--jp-ui-font-family);
+  color: var(--jp-ui-font-color1);
 }
 
-.open-announcements:hover {
-    color: black;
-    background-color: #bdbdbd;
-    cursor: pointer;
+.jp-nersc-refresh-announcements-open-announcements:hover {
+  color: black;
+  background-color: #bdbdbd;
+  cursor: pointer;
 }
