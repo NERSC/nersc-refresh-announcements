@@ -66,7 +66,7 @@ jobs:
       - name: Start jupyterlab
         run: |
           jupyter labextension list
-          jupyter lab --port=8888 --NotebookApp.token='' & --debug
+          jupyter lab --port=8888 --NotebookApp.token='' --debug &
       - name: Run nonempty test
         run: |
           pytest tests/test_nonempty_announcement.py
