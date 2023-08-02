@@ -41,8 +41,8 @@ jobs:
       # Download and install gecko web driver
       - name: Get web driver
         run: |
-          wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz
-          sudo tar -xzf geckodriver-v0.32.2-linux64.tar.gz -C /usr/bin
+          wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
+          sudo tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C /usr/bin
           sudo chmod a+x /usr/bin/geckodriver
 
       # Install selenium and pytest
@@ -76,8 +76,8 @@ jobs:
         run: |
           killall -9 node
           cd tests/test-server
-          (node ./tests/test-server/server.js --empty-announcement &)
           cd ../..
+          (node ./tests/test-server/server.js --empty-announcement &)
 
       # Run empty announcements test
       - name: Run empty announcement test
